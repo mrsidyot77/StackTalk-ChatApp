@@ -110,7 +110,7 @@ function Auth() {
                 />
                 <Input
                   placeholder="Confirm Password"
-                  type="confPassword"
+                  type="password"
                   classname="rounded-full p-6"
                   value={confPassword}
                   onChange={(e) => setConfPassword(e.target.value)}
