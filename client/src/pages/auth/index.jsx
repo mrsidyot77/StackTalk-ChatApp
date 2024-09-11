@@ -7,13 +7,24 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {apiClient} from "@/lib/api-client.js"
-import { SIGNUP_ROUTE } from "@/utils/constants";
+import { SIGNUP_ROUTE,LOGIN_ROUTE } from "@/utils/constants";
  
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
 
+  const validateLogin = ()=>{
+    if(!email.length){
+      toast.error("Email is required.")
+      return false
+    }
+    if(!password.length){
+      toast.error("Password is required.")
+      return false
+    }
+    return true
+  }
 
   const validateSignup = () =>{
     if(!email.length){
@@ -31,15 +42,21 @@ function Auth() {
     return true
   }
 
-  const handleLogin = async () => {};
-
-  const handleSignup = async () => {
-    if (validateSignup()) {
-      const response = await apiClient.post(SIGNUP_ROUTE,{email,password})
+  const handleLogin = async () => {
+    if(validateLogin()){
+      const response = await apiClient.post(LOGIN_ROUTE,{email,password},{withCredentials:true})
       console.log(response);
       
     }
   };
+
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const response = await apiClient.post(SIGNUP_ROUTE,{email,password},{withCredentials:true})
+      console.log(response);
+      
+    }
+  }; 
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
