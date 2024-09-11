@@ -11,7 +11,7 @@ const userSchema = new Schema({
     password : {
         type: String,
         required : [true, "Password is required."],
-        unique : true
+       
     },
     firstName : {
         type: String,
@@ -31,14 +31,15 @@ const userSchema = new Schema({
     },
     profileSetup : {
         type: Boolean,
-        required : false
+        required : false,
+        default: false
     },
 },{timestamps:true})
 
 userSchema.pre("save" , async function(){
     const salt = await genSalt()
     this.password = await hash(this.password, salt)
-    next()
+    
  })
 
 export const User = mongoose.model("User", userSchema )

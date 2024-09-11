@@ -14,14 +14,17 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors({
-    origin: [process.env.ORIGIN],
+    origin: process.env.ORIGIN,
     methods: ["GET","POST","PUT","DELETE","PATCH"],
-    credintials: true
+    credentials: true
+    
+    
 }))
+
 
 app.use(cookieParser())
 app.use(express.json())
-app.use("api/auth",authRoutes)
+app.use("/api/auth",authRoutes)
 connectDB()
 .then(()=>{
   app.listen(port, () => {

@@ -5,15 +5,41 @@ import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Tabs } from "@radix-ui/react-tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { toast } from "sonner";
+import {apiClient} from "@/lib/api-client.js"
+import { SIGNUP_ROUTE } from "@/utils/constants";
+ 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
 
+
+  const validateSignup = () =>{
+    if(!email.length){
+      toast.error("Email is required.")
+      return false
+    }
+    if(!password.length){
+      toast.error("Password is required.")
+      return false
+    }
+    if (password !== confPassword) {
+      toast.error("Password and Confirm Password must match.")
+      return false
+    }
+    return true
+  }
+
   const handleLogin = async () => {};
 
-  const handleSignup = async () => {};
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const response = await apiClient.post(SIGNUP_ROUTE,{email,password})
+      console.log(response);
+      
+    }
+  };
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
@@ -78,18 +104,18 @@ function Auth() {
                 <Input
                   placeholder="Email"
                   type="email"
-                  classname="rounded-full p-6"
+                  className="rounded-full p-6"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   placeholder="Password"
                   type="password"
-                  classname="rounded-full p-6"
+                  className="rounded-full p-6"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button classname="rounded-full p-6" onClick={handleLogin}>
+                <Button className="rounded-full p-6" onClick={handleLogin}>
                   Login{" "}
                 </Button>
               </TabsContent>
@@ -97,25 +123,25 @@ function Auth() {
                 <Input
                   placeholder="Email"
                   type="email"
-                  classname="rounded-full p-6"
+                  className="rounded-full p-6"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   placeholder="Password"
                   type="password"
-                  classname="rounded-full p-6"
+                  className="rounded-full p-6"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Input
                   placeholder="Confirm Password"
                   type="password"
-                  classname="rounded-full p-6"
+                  className="rounded-full p-6"
                   value={confPassword}
                   onChange={(e) => setConfPassword(e.target.value)}
                 />
-                <Button classname="rounded-full p-6" onClick={handleSignup}>
+                <Button className="rounded-full p-6" onClick={handleSignup}>
                   SignUP 
                 </Button>
               </TabsContent>
