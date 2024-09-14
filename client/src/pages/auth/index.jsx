@@ -8,8 +8,12 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {apiClient} from "@/lib/api-client.js"
 import { SIGNUP_ROUTE,LOGIN_ROUTE } from "@/utils/constants";
+import { useNavigate } from "react-router-dom";
+import { useAppStore } from "@/store";
  
 function Auth() {
+  const naviage = useNavigate()
+  const { setUserInfo } = useAppStore()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
@@ -46,6 +50,13 @@ function Auth() {
     if(validateLogin()){
       const response = await apiClient.post(LOGIN_ROUTE,{email,password},{withCredentials:true})
       console.log(response);
+      if (response.data.id) {
+        
+        
+        setUserInfo(response.data)
+        if(response.data.profileSetup) naviage("/chat")
+          else naviage("/profile")
+      }
       
     }
   };
@@ -54,6 +65,10 @@ function Auth() {
     if (validateSignup()) {
       const response = await apiClient.post(SIGNUP_ROUTE,{email,password},{withCredentials:true})
       console.log(response);
+      if(response.status === 201){
+        setUserInfo(response.data.user)
+        naviage("/profile")
+      }
       
     }
   }; 
@@ -72,7 +87,7 @@ function Auth() {
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
-            <Tabs className="w-3/4">
+            <Tabs className="w-3/4" defaultValue="login" >
               <TabsList className="flex w-full">
                 <TabsTrigger
                   value="login"
