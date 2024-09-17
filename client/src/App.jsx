@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/index";
-import Chat from "./pages/chat";
+import Chat from "./pages/chat/index";
 import Profile from "./pages/profile";
 import { useAppStore } from "./store";
 import { useReducer, useState, useEffect } from "react";
@@ -50,7 +50,7 @@ function App() {
   }, [userInfo, setUserInfo])
 
   if(loading){
-    <div>Loading...</div>
+    return <div>Loading...</div>
   }
 
   return (

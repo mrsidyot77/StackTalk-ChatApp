@@ -1,5 +1,5 @@
 import { useAppStore } from "@/store";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
@@ -7,6 +7,9 @@ import { colors, getColor } from "@/lib/utils";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
+import { UPDATE_PROFILE_ROUTE } from "@/utils/constants.js";
 
 function Profile() {
   const navigate = useNavigate();
@@ -17,7 +20,53 @@ function Profile() {
   const [hovered, setHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
 
-  const saveChanges = async () => {};
+  useEffect(() => {
+    if (userInfo.profileSetup) {
+      setFirstName(userInfo.firstName)
+      setLastName(userInfo.lastName)
+      setSelectedColor(userInfo.color)
+    }
+    
+  }, [userInfo])
+
+  const validateProfile = () => {
+    if (!firstName) {
+      toast.error("First Name is required.");
+      return false;
+    }
+    if (!lastName) {
+      toast.error("Last Name is required.");
+      return false;
+    }
+    return true;
+  };
+
+  const saveChanges = async () => {
+    if (validateProfile()) {
+      try {
+        const response = await apiClient.post(
+          UPDATE_PROFILE_ROUTE,
+          { firstName, lastName, color: selectedColor },
+          { withCredentials: true }
+        );
+        console.log(response);
+        
+        if (response.status === 200 && response.data) {
+
+          setUserInfo({...response.data})
+          console.log({...response.data});
+          
+          toast.success("User profile updated successfully.")
+          navigate("/chat")
+          console.log("navigating to /chat");
+          
+
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-1">
@@ -64,7 +113,7 @@ function Profile() {
           <div className="flex min-w-32 md:min-w-64 flex-col gap-5 text-white items-center justify-center">
             <div className=" w-full ">
               <Input
-                placeHolder="Email"
+                placeholder="Email"
                 type="email"
                 disabled
                 value={userInfo.email}
@@ -73,7 +122,7 @@ function Profile() {
             </div>
             <div className=" w-full ">
               <Input
-                placeHolder="First Name"
+                placeholder="First Name"
                 type="text"
                 value={firstName}
                 className="rounded-lg p-6 bg-[#2c2e3b] border-none "
@@ -82,7 +131,7 @@ function Profile() {
             </div>
             <div className=" w-full ">
               <Input
-                placeHolder="Last Name"
+                placeholder="Last Name"
                 type="text"
                 value={lastName}
                 className="rounded-lg p-6 bg-[#2c2e3b] border-none "
@@ -106,8 +155,10 @@ function Profile() {
           </div>
         </div>
         <div className="w-full">
-          <Button className="h-12 w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300 my-6"
-          onClick={saveChanges}>
+          <Button
+            className="h-12 w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300 my-6"
+            onClick={saveChanges}
+          >
             Save Changes
           </Button>
         </div>
