@@ -87,7 +87,7 @@ function Profile() {
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log({ file });
+    
     const formData = new FormData();
     formData.append("profile-image", file);
     const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
@@ -104,8 +104,9 @@ function Profile() {
      const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {
        withCredentials: true,
      });
-
-     if (response === 200) {
+    
+     
+     if (response.status === 200) {
       setUserInfo({...userInfo, image : null})
       toast.success("Profile image has been removed successffully.")
       setImage(null)
