@@ -1,6 +1,7 @@
 import { compare } from "bcrypt";
 import { User } from "../model/user.model.js";
 import jwt from "jsonwebtoken";
+import { renameSync, unlinkSync } from "fs";
 
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 const createToken = (email, userId) => {
@@ -100,7 +101,7 @@ export const updateProfile = async (req, res, next) => {
     const { userId } = req;
     const { firstName, lastName, color } = req.body;
 
-    if (!firstName || !lastName ) {
+    if (!firstName || !lastName) {
       return res.status(400).send("First Name and Last Name  required.");
     }
 
@@ -124,3 +125,35 @@ export const updateProfile = async (req, res, next) => {
     return res.status(500).send("Internel server error.");
   }
 };
+
+export const addProfileImage = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).send("File is required.");
+    }
+
+    const date = Date.now();
+    let fileName = "uploads/profiles/" + date + req.file.originalname;
+    renameSync(req.file.path, fileName);
+    const updatedUser = await User.findByIdAndUpdate(
+      req.userId,
+      { image: fileName },
+      { new: true, runValidators: true }
+    );
+
+   
+
+    return res.status(200).json({
+      
+      image: updatedUser.image,
+      
+    });
+    
+    
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).send("Internel server error.");
+  }
+};
+
+export const removeProfileImage = async (req, res, next) => {};
