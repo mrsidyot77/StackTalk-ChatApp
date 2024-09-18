@@ -9,7 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client";
-import { UPDATE_PROFILE_ROUTE, ADD_PROFILE_IMAGE_ROUTE, HOST } from "@/utils/constants.js";
+import {
+  UPDATE_PROFILE_ROUTE,
+  ADD_PROFILE_IMAGE_ROUTE,
+  HOST,
+  REMOVE_PROFILE_IMAGE_ROUTE,
+} from "@/utils/constants.js";
 
 function Profile() {
   const navigate = useNavigate();
@@ -27,10 +32,10 @@ function Profile() {
       setLastName(userInfo.lastName);
       setSelectedColor(userInfo.color);
     }
-    if(userInfo.image){
+    if (userInfo.image) {
       console.log(userInfo.image);
-      
-      setImage(`${HOST}/${userInfo.image}`)
+
+      setImage(`${HOST}/${userInfo.image}`);
     }
   }, [userInfo]);
 
@@ -58,11 +63,9 @@ function Profile() {
 
         if (response.status === 200 && response.data) {
           setUserInfo({ ...response.data });
-        
 
           toast.success("User profile updated successfully.");
           navigate("/chat");
-          
         }
       } catch (error) {
         console.log(error);
@@ -83,20 +86,35 @@ function Profile() {
   };
 
   const handleImageChange = async (e) => {
-    const file = e.target.files[0]
-    console.log({file});
-    const formData = new FormData()
-    formData.append("profile-image",file)
+    const file = e.target.files[0];
+    console.log({ file });
+    const formData = new FormData();
+    formData.append("profile-image", file);
     const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
-      withCredentials: true
-    })
-    if(response.status === 200 && response.data.image){
-      setUserInfo({...userInfo, image: response.data.image})
-      toast.success("Profile Image updated successfully.")
+      withCredentials: true,
+    });
+    if (response.status === 200 && response.data.image) {
+      setUserInfo({ ...userInfo, image: response.data.image });
+      toast.success("Profile Image updated successfully.");
     }
   };
 
-  const handleImageDelete = async (e) => {};
+  const handleImageDelete = async (e) => {
+   try {
+     const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {
+       withCredentials: true,
+     });
+
+     if (response === 200) {
+      setUserInfo({...userInfo, image : null})
+      toast.success("Profile image has been removed successffully.")
+      setImage(null)
+     }
+   } catch (error) {
+    console.log(error);
+    
+   }
+  };
 
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-1">

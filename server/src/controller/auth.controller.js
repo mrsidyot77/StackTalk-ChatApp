@@ -156,4 +156,27 @@ export const addProfileImage = async (req, res, next) => {
   }
 };
 
-export const removeProfileImage = async (req, res, next) => {};
+export const removeProfileImage = async (req, res, next) => {
+  try {
+    const { userId } = req;
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    if (user.image) {
+      unlinkSync(user.image)
+    }
+
+    user.image = null
+    await user.save()
+
+   
+
+    return res.status(200).send("Profile has been deleted successfully.");
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).send("Internel server error.");
+  }
+};
