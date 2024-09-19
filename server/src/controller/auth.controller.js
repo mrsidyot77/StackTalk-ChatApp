@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
     }
     const auth = await compare(password, user.password);
     if (!auth) {
-      res.status(404).send("Invalid credentials.");
+      res.status(401).send("Invalid credentials.");
     }
     res.cookie("jwt", createToken(email, user._id)),
       {
