@@ -7,15 +7,35 @@ import {
 } from "@/components/ui/tooltip";
 import { getColor } from "@/lib/utils";
 import { useAppStore } from "@/store";
-import { HOST } from "@/utils/constants";
+import { HOST, LOGOUT_ROUTE } from "@/utils/constants";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import {IoPowerSharp} from "react-icons/io5"
+import { IoPowerSharp } from "react-icons/io5";
+import { apiClient } from "@/lib/api-client";
 
 function ProfileInfo() {
   const navigate = useNavigate();
-  const { userInfo } = useAppStore();
+  const { userInfo,setUserInfo } = useAppStore();
+
+  const logOut = async () => {
+    try {
+      const response = await apiClient.post(
+        LOGOUT_ROUTE,
+        {},
+        { withCredentials: true }
+      );
+      console.log(response);
+      
+      if (response.status === 200) {
+        navigate("/auth")
+        setUserInfo(null)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="h-16 absolute bottom-0 flex items-center justify-center px-10 w-full bg-[#2a2b33]">
       <div className="flex items-center justify-center gap-3">
@@ -65,7 +85,7 @@ function ProfileInfo() {
             <TooltipTrigger>
               <IoPowerSharp
                 className="text-xl text-red-500 ml-3 font-medium"
-                
+                onClick={logOut}
               />
             </TooltipTrigger>
             <TooltipContent className="bg-[#1c1b1e] border-none text-white">
