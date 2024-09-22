@@ -56,7 +56,6 @@ function MessageBar() {
             open={emojiPickerOpen}
             onEmojiClick={handleAddEmoji}
             autoFocusSearch={false}
-            
             />
           </div>
         </div>

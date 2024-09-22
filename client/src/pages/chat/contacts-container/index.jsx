@@ -1,4 +1,5 @@
 import React from 'react'
+import ProfileInfo from "@/pages/chat/contacts-container/components/ProfileInfo"
 
 function ContactsContainer() {
   return (
@@ -16,6 +17,7 @@ function ContactsContainer() {
           <Title text= "channels" />
         </div>
       </div>
+      <ProfileInfo />
     </div>
   )
 }
