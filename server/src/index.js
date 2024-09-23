@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./db/index.js";
 import authRoutes from "./routes/auth.routes.js";
 import contactRoutes from "./routes/contacts.routes.js";
+import setUpSocket from "./socket.js";
 
 dotenv.config({ path: "./.env" });
 
@@ -30,15 +31,18 @@ app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactRoutes);
 connectDB()
   .then(() => {
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.log(`⚙ Server is running on the port ${port} `);
 
       app.on("error", (error) => {
         console.log("ERROR: db not able to listen express", error);
       });
+      setUpSocket(server)
     });
   })
   .catch((error) => {
     console.log("MongoDB connection failed.", error);
     process.exit(1);
   });
+
+  
