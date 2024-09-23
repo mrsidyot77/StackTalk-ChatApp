@@ -91,7 +91,7 @@ function NewDm() {
                 <div
                   key={contact._id}
                   className="items-center flex gap-3 cursor-pointer m-1 "
-                  onClick={(contact)=>selectNewContact(contact)}
+                  onClick={()=>selectNewContact(contact)}
                 >
                   <div className="h-12 w-12 relative">
                     <Avatar className="h-12 w-12  rounded-full overflow-hidder">
