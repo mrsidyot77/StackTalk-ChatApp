@@ -16,7 +16,7 @@ import { apiClient } from "@/lib/api-client";
 
 function ProfileInfo() {
   const navigate = useNavigate();
-  const { userInfo,setUserInfo } = useAppStore();
+  const { userInfo, setUserInfo } = useAppStore();
 
   const logOut = async () => {
     try {
@@ -26,10 +26,10 @@ function ProfileInfo() {
         { withCredentials: true }
       );
       console.log(response);
-      
+
       if (response.status === 200) {
-        navigate("/auth")
-        setUserInfo(null)
+        navigate("/auth");
+        setUserInfo(null);
       }
     } catch (error) {
       console.log(error);
@@ -37,10 +37,10 @@ function ProfileInfo() {
   };
 
   return (
-    <div className="h-16 absolute bottom-0 flex items-center justify-center px-10 w-full bg-[#2a2b33]">
-      <div className="flex items-center justify-center gap-3">
-        <div className="h-12 w-12 relative">
-          <Avatar className="h-12 w-12  rounded-full overflow-hidder">
+    <div className="h-16 absolute bottom-0 flex flex-col md:flex-row items-center justify-between px-4 sm:px-10 w-full bg-[#2a2b33]">
+      <div className="flex items-center justify-center gap-3 mb-2 md:mb-0">
+        <div className="h-10 w-10 sm:h-12 sm:w-12 relative">
+          <Avatar className="h-full w-full rounded-full overflow-hidden">
             {userInfo.image ? (
               <AvatarImage
                 src={`${HOST}/${userInfo.image}`}
@@ -49,29 +49,29 @@ function ProfileInfo() {
               />
             ) : (
               <div
-                className={`uppercase h-12 w-12  text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(
+                className={`uppercase h-full w-full text-sm sm:text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(
                   userInfo.color
-                )} `}
+                )}`}
               >
                 {userInfo.firstName
-                  ? userInfo.firstName.split("").shift()
-                  : userInfo.email.split("").shift()}
+                  ? userInfo.firstName.charAt(0)
+                  : userInfo.email.charAt(0)}
               </div>
             )}
           </Avatar>
         </div>
-        <div>
+        <div className="text-sm sm:text-base text-white">
           {userInfo.firstName && userInfo.lastName
             ? `${userInfo.firstName} ${userInfo.lastName}`
             : ""}
         </div>
       </div>
-      <div className=" flex">
+      <div className="flex items-center space-x-4">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <FaEdit
-                className="text-xl text-purple-500 font-medium ml-3"
+                className="text-sm sm:text-xl text-purple-500 font-medium cursor-pointer"
                 onClick={() => navigate("/profile")}
               />
             </TooltipTrigger>
@@ -84,7 +84,7 @@ function ProfileInfo() {
           <Tooltip>
             <TooltipTrigger>
               <IoPowerSharp
-                className="text-xl text-red-500 ml-3 font-medium"
+                className="text-sm sm:text-xl text-red-500 font-medium cursor-pointer"
                 onClick={logOut}
               />
             </TooltipTrigger>

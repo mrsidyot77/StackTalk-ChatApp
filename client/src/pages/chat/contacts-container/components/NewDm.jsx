@@ -22,11 +22,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
 
-
 function NewDm() {
   const [openNewContactModel, setOpenNewContactModel] = useState(false);
   const [searchedContacts, setSearchedContacts] = useState([]);
-  const {setSelectedChatType, setSelectedChatData} = useAppStore()
+  const { setSelectedChatType, setSelectedChatData } = useAppStore();
 
   const searchContacts = async (searchTerm) => {
     try {
@@ -45,17 +44,16 @@ function NewDm() {
         setSearchedContacts([]);
       }
     } catch (error) {
-      console.log(error, "while searching contatcs");
+      console.log(error, "while searching contacts");
     }
   };
 
-
-  const selectNewContact = (contact)=>{
-    setOpenNewContactModel(false)
-    setSelectedChatType("contact")
-    setSelectedChatData(contact)
-    setSearchedContacts([])
-  }
+  const selectNewContact = (contact) => {
+    setOpenNewContactModel(false);
+    setSelectedChatType("contact");
+    setSelectedChatData(contact);
+    setSearchedContacts([]);
+  };
 
   return (
     <>
@@ -63,38 +61,38 @@ function NewDm() {
         <Tooltip>
           <TooltipTrigger>
             <FaPlus
-              className="text-neutral-500 text-opacity-90 font-light text-small hover:text-neutral-100 cursor-pointer transition-all duration-300"
+              className="text-neutral-500 text-opacity-90 font-light text-sm sm:text-base md:text-lg hover:text-neutral-100 cursor-pointer transition-all duration-300"
               onClick={() => setOpenNewContactModel(true)}
             />
           </TooltipTrigger>
-          <TooltipContent className="bg-[#1c1b1e] border-none text-white mb-2 p-3">
+          <TooltipContent className="bg-[#1c1b1e] border-none text-white mb-2 p-2 sm:p-3">
             Select Contact
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <Dialog open={openNewContactModel} onOpenChange={setOpenNewContactModel}>
-        <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[400px] flex flex-col">
+        <DialogContent className="bg-[#181920] border-none text-white w-[90%] sm:w-[400px] h-[90%] sm:h-[400px] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Please Select a Contact</DialogTitle>
+            <DialogTitle className="text-base sm:text-lg md:text-xl">Please Select a Contact</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <div>
             <Input
               placeholder="Search Contacts"
-              className="rounded-lg p-6 bg-[#2c2e3b] border-none"
+              className="rounded-lg p-4 sm:p-6 bg-[#2c2e3b] border-none text-sm sm:text-base"
               onChange={(e) => searchContacts(e.target.value)}
             />
           </div>
-          <ScrollArea className="h-[250px]">
-            <div className="flex flex-col gap5">
+          <ScrollArea className="h-[200px] sm:h-[250px] mt-2 sm:mt-4">
+            <div className="flex flex-col gap-2 sm:gap-3">
               {searchedContacts.map((contact) => (
                 <div
                   key={contact._id}
-                  className="items-center flex gap-3 cursor-pointer m-1 "
-                  onClick={()=>selectNewContact(contact)}
+                  className="items-center flex gap-2 sm:gap-3 cursor-pointer p-2 sm:p-3 rounded-lg hover:bg-[#1c1d25] transition-colors duration-300"
+                  onClick={() => selectNewContact(contact)}
                 >
-                  <div className="h-12 w-12 relative">
-                    <Avatar className="h-12 w-12  rounded-full overflow-hidder">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 relative">
+                    <Avatar className="h-full w-full rounded-full overflow-hidden">
                       {contact.image ? (
                         <AvatarImage
                           src={`${HOST}/${contact.image}`}
@@ -103,43 +101,41 @@ function NewDm() {
                         />
                       ) : (
                         <div
-                          className={`uppercase h-12 w-12  text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(
+                          className={`uppercase h-full w-full text-xs sm:text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(
                             contact.color
-                          )} `}
+                          )}`}
                         >
                           {contact.firstName
-                            ? contact.firstName.split("").shift()
-                            : contact.email.split("").shift()}
+                            ? contact.firstName.charAt(0)
+                            : contact.email.charAt(0)}
                         </div>
                       )}
                     </Avatar>
                   </div>
                   <div className="flex flex-col">
-                    <span>
-                    {contact.firstName && contact.lastName
-                      ? `${contact.firstName} ${contact.lastName}`
-                      : `${contact.email}`}
-                      </span>
-                      <span className="text-xs"> 
-                      {contact.email 
-                      ? `${contact.email} `
-                      : ""}
-                      </span>
+                    <span className="text-sm sm:text-base">
+                      {contact.firstName && contact.lastName
+                        ? `${contact.firstName} ${contact.lastName}`
+                        : `${contact.email}`}
+                    </span>
+                    <span className="text-xs sm:text-sm text-gray-400">
+                      {contact.email}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
           </ScrollArea>
           {searchedContacts.length <= 0 && (
-            <div className="flex-1  md:flex flex-col justify-center items-center duration-1000 transition-all m-5">
+            <div className="flex-1 flex flex-col justify-center items-center duration-1000 transition-all mt-4">
               <Lottie
-                isCliclToPauseDisabled={true}
-                height={100}
-                width={100}
+                isClickToPauseDisabled={true}
+                height={80}
+                width={80}
                 options={animationDefaultOptions}
               />
-              <div className="text-opacity-80 text-white flex flex-col items-center mt-5 gap-5 lg:text-2xl text-xl transition-all duration-300 text-center">
-                <h3 className="poppins-medium">
+              <div className="text-opacity-80 text-white flex flex-col items-center mt-4 gap-3 text-sm sm:text-xl transition-all duration-300 text-center">
+                <h3 className="font-medium">
                   Search new
                   <span className="text-purple-500"> Contact... </span>
                 </h3>

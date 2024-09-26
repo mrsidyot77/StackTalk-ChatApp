@@ -3,12 +3,12 @@ import mongoose, { Schema } from "mongoose";
 const messagesSchema = new Schema({
     sender: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
+        ref: "User",
         required: true
     },
-    sender: {
+    recipient: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
+        ref: "User",
         required: false
     },
     messageType: {
@@ -17,23 +17,29 @@ const messagesSchema = new Schema({
         required: true 
     },
     content: {
-        types: String,
-        required: function(){
-            return this.messageType === "text"
-        },
+        type: String,
+        validate: {
+            validator: function() {
+                return this.messageType === "text" ? this.content && this.content.length > 0 : true;
+            },
+            message: "Content is required when the messageType is 'text'"
+        }
     },
     fileUrl: {
-        types: String,
-        required: function(){
-            return this.messageType === "file"
-        },
+        type: String,
+        validate: {
+            validator: function() {
+                return this.messageType === "file" ? this.fileUrl && this.fileUrl.length > 0 : true;
+            },
+            message: "File URL is required when the messageType is 'file'"
+        }
     },
     timestamp: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
-},{timestamps: true})
+}, { timestamps: true });
 
-const Message = mongoose.model("Messages", messagesSchema)
+const Message = mongoose.model("Messages", messagesSchema);
 
-export default Message
+export default Message;

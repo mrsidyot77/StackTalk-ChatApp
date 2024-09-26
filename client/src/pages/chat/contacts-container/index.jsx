@@ -4,24 +4,24 @@ import NewDm from './components/NewDm';
 
 function ContactsContainer() {
   return (
-    <div className='relative md:w-[35vw] lg:w-[30vw] xl:w[20vw] bg-[#1b1c24] border-r-2 border-[#202f3b] w-full'>
+    <div className='relative w-full md:w-[35vw] lg:w-[30vw] xl:w-[25vw] bg-[#1b1c24] border-r-2 border-[#202f3b]'>
       <div className='pt-3'>
         <Logo />
       </div>
-      <div className="my-5">
-        <div className="flex justify-between items-center pr-10 ">
-          <Title text= "Direct messages" />
+      <div className="my-5 px-4 sm:px-0">
+        <div className="flex justify-between items-center">
+          <Title text="Direct messages" />
           <NewDm />
         </div>
       </div>
-      <div className="my-5">
-        <div className="flex justify-between items-center pr-10 ">
-          <Title text= "channels" />
+      <div className="my-5 px-4 sm:px-0">
+        <div className="flex justify-between items-center">
+          <Title text="Channels" />
         </div>
       </div>
       <ProfileInfo />
     </div>
-  )
+  );
 }
 
 export default ContactsContainer

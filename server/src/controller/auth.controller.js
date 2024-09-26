@@ -42,16 +42,16 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).send("Email and password are required.");
+      return res.status(400).send("Email and password are required.");
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(404).send("User with the given Email not found.");
+      return res.status(404).send("User with the given Email not found.");
     }
     const auth = await compare(password, user.password);
     if (!auth) {
-      res.status(401).send("Invalid credentials.");
+      return res.status(401).send("Invalid credentials.");
     }
     res.cookie("jwt", createToken(email, user._id)),
       {
