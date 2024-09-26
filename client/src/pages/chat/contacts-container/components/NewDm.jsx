@@ -61,7 +61,7 @@ function NewDm() {
         <Tooltip>
           <TooltipTrigger>
             <FaPlus
-              className="text-neutral-500 text-opacity-90 font-light text-sm sm:text-base md:text-lg hover:text-neutral-100 cursor-pointer transition-all duration-300"
+              className="text-neutral-500 mr-12 text-opacity-90 font-light text-sm sm:text-base md:text-lg hover:text-neutral-100 cursor-pointer transition-all duration-300"
               onClick={() => setOpenNewContactModel(true)}
             />
           </TooltipTrigger>
@@ -127,7 +127,7 @@ function NewDm() {
             </div>
           </ScrollArea>
           {searchedContacts.length <= 0 && (
-            <div className="flex-1 flex flex-col justify-center items-center duration-1000 transition-all mt-4">
+            <div className="flex-1 flex flex-col justify-center items-center duration-1000 transition-all mt-4 mb-14">
               <Lottie
                 isClickToPauseDisabled={true}
                 height={80}
