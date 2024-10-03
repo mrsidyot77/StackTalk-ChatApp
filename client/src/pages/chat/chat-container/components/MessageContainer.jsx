@@ -1,3 +1,4 @@
+
 import { apiClient } from "@/lib/api-client";
 import { useAppStore } from "@/store";
 import { GET_MESSAGES_ROUTES } from "@/utils/constants";
@@ -62,6 +63,7 @@ function MessageContainer() {
   };
 
   const renderDmMessages = (message) => (
+   
     <div
       className={` ${
         message.sender === selectedChatData._id ? "text-left" : "text-right"
@@ -71,7 +73,7 @@ function MessageContainer() {
         <div
           className={`${
             message.sender !== selectedChatData._id
-              ? "bg-[#8417ff]/5 text-[#8417ff]/90 border-[#8417ff]/50"
+              ? "bg-[#8417ff]/5 text-[#ffff]/90 border-[#8417ff]/50"
               : "bg-[#2a2b33]/5 text-white/80 border-[#ffff]/20"
           } border inline-block p-4 rounded my-1  break-words`} // Change max-w to w-full
         >
@@ -82,8 +84,9 @@ function MessageContainer() {
         {moment(message.timestamp).format("LT")}
       </div>
     </div>
+    
   );
-
+  
   return (
     <div className="flex-1 overflow-y-auto scrollbar-hidden p-4 w-full max-w-[90vw]">
       {renderMessages()}

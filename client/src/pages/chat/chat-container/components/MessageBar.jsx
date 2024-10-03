@@ -35,6 +35,14 @@ function MessageBar() {
         messageType: "text",
         fileUrl: undefined
       })
+      setMessage("")
+    }
+  }
+
+  const handleKeyDown = (e)=>{
+    if(e.key === "Enter" && !e.shiftKey){ //to insert a new line presing shif + enter key second consition is made
+      e.preventDefault()
+      handleSendMessage()
     }
   }
 
@@ -52,6 +60,7 @@ function MessageBar() {
           className="flex-1 p-5 bg-transparent rounded-md focus:border-none focus:outline-none"
           placeholder="Message"
           value={message}
+          onKeyDown={handleKeyDown}
           onChange={(e) => setMessage(e.target.value)}
         />
         <button className="text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Background from "@/assets/login2.png";
+import Background from "@/assets/login3.png";
 import Victory from "@/assets/victory.svg";
 import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Tabs } from "@radix-ui/react-tabs";
@@ -74,8 +74,8 @@ function Auth() {
   }; 
 
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center">
-      <div className="h-[90vh] bg-white border-white text-opacity-90 shadow-2xl w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2">
+    <div className="h-[100vh]  bg-[#1c1d25] w-[100vw] flex items-center justify-center">
+      <div className="h-[90vh] bg-[#2f303b]  border-slate-200 text-white text-opacity-90 shadow-2xl w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2">
         <div className="flex flex-col gap-10 items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center">
@@ -83,7 +83,7 @@ function Auth() {
               <img src={Victory} alt="Victory Emoji" className="h-[100px]" />
             </div>
             <p className="font-medium text-center">
-              Fil in the details to get started with the chat app!
+              Fil in the details to get started with the SpiceChat app!
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
@@ -94,15 +94,15 @@ function Auth() {
                   className="
                     w-1/2 
                     p-3 
-                    text-black 
-                    text-opacity-90 
+                    text-white 
+                    text-opacity-70 
                     border-b-2 
                     border-transparent 
                     rounded-none 
                     transition-all 
                     duration-300 
                     data-[state=active]:bg-transparent 
-                    data-[state=active]:text-black 
+                    data-[state=active]:text-white 
                     data-[state=active]:text-opacity-100 
                     data-[state=active]:font-semibold 
                     data-[state=active]:border-b-purple-500
@@ -115,15 +115,15 @@ function Auth() {
                   className="
                     w-1/2 
                     p-3 
-                    text-black 
-                    text-opacity-90 
+                    text-white 
+                    text-opacity-70 
                     border-b-2 
                     border-transparent 
                     rounded-none 
                     transition-all 
                     duration-300 
                     data-[state=active]:bg-transparent 
-                    data-[state=active]:text-black 
+                    data-[state=active]:text-white 
                     data-[state=active]:text-opacity-100 
                     data-[state=active]:font-semibold 
                     data-[state=active]:border-b-purple-500
@@ -132,22 +132,22 @@ function Auth() {
                   SignUp
                 </TabsTrigger>
               </TabsList>
-              <TabsContent className="flex flex-col gap-5 mt-10" value="login">
+              <TabsContent className="flex flex-col gap-5 mt-10 border-white" value="login">
                 <Input
                   placeholder="Email"
                   type="email"
-                  className="rounded-full p-6"
+                  className="rounded-full p-6 text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   placeholder="Password"
                   type="password"
-                  className="rounded-full p-6"
+                  className="rounded-full p-6 text-black"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button className="rounded-full p-6" onClick={handleLogin}>
+                <Button className="rounded-full p-6 hover:opacity-80 " onClick={handleLogin}>
                   Login{" "}
                 </Button>
               </TabsContent>
@@ -155,25 +155,25 @@ function Auth() {
                 <Input
                   placeholder="Email"
                   type="email"
-                  className="rounded-full p-6"
+                  className="rounded-full p-6  text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   placeholder="Password"
                   type="password"
-                  className="rounded-full p-6"
+                  className="rounded-full p-6 text-black"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Input
                   placeholder="Confirm Password"
                   type="password"
-                  className="rounded-full p-6"
+                  className="rounded-full p-6 text-black"
                   value={confPassword}
                   onChange={(e) => setConfPassword(e.target.value)}
                 />
-                <Button className="rounded-full p-6" onClick={handleSignup}>
+                <Button className="rounded-full p-6 hover:opacity-80" onClick={handleSignup}>
                   SignUP 
                 </Button>
               </TabsContent>
@@ -181,7 +181,7 @@ function Auth() {
           </div>
         </div>
         <div className="hidden xl:flex justify-center items-center"> 
-          <img src= {Background} alt="Background Image" className="h-[500px]" />
+          <img src= {Background} alt="Background Image" className="h-[400px] w-[600px] " />
         </div>
       </div>
     </div>
