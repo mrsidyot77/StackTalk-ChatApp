@@ -1,4 +1,5 @@
-import Message  from "../model/messages.model.js";
+import mongoose from "mongoose";
+import Message from "../model/messages.model.js";
 
 export const getMessages = async (req, res, next) => {
   try {
@@ -14,7 +15,7 @@ export const getMessages = async (req, res, next) => {
         { sender: user1, recipient: user2 },
         { sender: user2, recipient: user1 },
       ],
-    }).sort({timestamps: 1});
+    }).sort({ timestamps: 1 });
     return res.status(200).send({ messages });
   } catch (error) {
     console.log({ error });

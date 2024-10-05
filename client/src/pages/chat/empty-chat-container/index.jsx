@@ -4,7 +4,7 @@ import { animationDefaultOptions } from '@/lib/utils'
 
 function EmptyChatContainer() {
   return (
-    <div className='flex-1 bg-[#1c1d25] md:bg-[#1c1d25] flex flex-col justify-center items-center hidden md:flex transition-all duration-1000'>
+    <div className='flex-1 bg-[#1c1d25] md:bg-[#1c1d25]  flex-col justify-center items-center hidden md:flex transition-all duration-1000'>
       <div className='w-[70%] max-w-[200px]'>
         <Lottie
           isClickToPauseDisabled={true}
