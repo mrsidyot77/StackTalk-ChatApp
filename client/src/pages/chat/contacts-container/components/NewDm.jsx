@@ -132,6 +132,7 @@ function NewDm() {
                 isClickToPauseDisabled={true}
                 height={80}
                 width={80}
+                
                 options={animationDefaultOptions}
               />
               <div className="text-opacity-80 text-white flex flex-col items-center mt-4 gap-3 text-sm sm:text-xl transition-all duration-300 text-center">
