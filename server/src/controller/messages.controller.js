@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import Message from "../model/messages.model.js";
+import { response } from "express";
+import fs, { mkdir, mkdirSync, renameSync } from "fs"
 
 export const getMessages = async (req, res, next) => {
   try {
@@ -19,6 +21,26 @@ export const getMessages = async (req, res, next) => {
     return res.status(200).send({ messages });
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
+  }
+};
+
+export const uploadFiles = async (req, res, next) => {
+  try {
+   if (!req.file) {
+    return response.status(400).send("Files is required.")
+   }
+
+   const date = Date.now()
+   let fileDir = `uploads/files/${date}`
+   let fileName = `${fileDir}/${req.file.originalname}`
+
+   mkdirSync(fileDir, {recursive: true})
+   renameSync(req.file.path, fileName)
+
+    return res.status(200).send({ filePath : fileName });
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).send("Internal server error.");
   }
 };

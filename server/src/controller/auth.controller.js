@@ -34,7 +34,7 @@ export const signUp = async (req, res, next) => {
     });
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -70,7 +70,7 @@ export const login = async (req, res, next) => {
     });
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -92,7 +92,7 @@ export const getUserInfo = async (req, res, next) => {
     });
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -122,7 +122,7 @@ export const updateProfile = async (req, res, next) => {
     });
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -152,7 +152,7 @@ export const addProfileImage = async (req, res, next) => {
     
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -177,7 +177,7 @@ export const removeProfileImage = async (req, res, next) => {
     return res.status(200).send("Profile has been deleted successfully.");
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
 
@@ -188,6 +188,6 @@ export const logOut = async (req, res, next) => {
     
   } catch (error) {
     console.log({ error });
-    return res.status(500).send("Internel server error.");
+    return res.status(500).send("Internal server error.");
   }
 };
