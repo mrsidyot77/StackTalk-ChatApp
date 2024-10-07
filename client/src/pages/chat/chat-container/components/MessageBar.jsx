@@ -62,7 +62,7 @@ function MessageBar() {
   const handleAttachmentChange = async (e) => {
     try {
       const file = e.target.files[0];
-     
+
       const formData = new FormData();
       formData.append("file", file);
       const response = await apiClient.post(UPLOAD_FILES_ROUTES, formData, {

@@ -42,6 +42,19 @@ function MessageContainer() {
     }
   }, [selectedChatMessages]);
 
+  const downloadFile = async(url)=>{
+    const response = await apiClient.get(`${HOST}/${url}`,{
+      responseType: "blob"
+    })
+    const urlBlob = window.URL.createObjectURL(new Blob([response.data]))
+    const link = document.createElement("a")
+    link.href = urlBlob
+    link.setAttribute("download", url.split("/").pop())
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    window.URL.revokeObjectURL(urlBlob)
+  }
   const renderMessages = () => {
     let lastDate = null;
     return selectedChatMessages.map((message, index) => {
@@ -49,9 +62,7 @@ function MessageContainer() {
       const showDate = messageDate !== lastDate;
       lastDate = messageDate;
 
-      const downloadFile = (file)=>{
-
-      }
+    
       return (
         <div key={index}>
           {showDate && (
