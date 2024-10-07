@@ -6,6 +6,7 @@ import { useAppStore } from "./store";
 import { useReducer, useState, useEffect } from "react";
 import { apiClient } from "./lib/api-client";
 import {GET_USER_INFO} from "./utils/constants.js"
+import Loading from "./components/Loading";
 
 const PrivateRoute = ({ children }) => {
   const { userInfo } = useAppStore();
@@ -19,38 +20,43 @@ const AuthRoute = ({ children }) => {
   return isAuthenticated ? <Navigate to="/chat" /> : children;
 };
 
+
+
 function App() {
 
   const {userInfo, setUserInfo} = useAppStore()
   const [loading, setLoading] = useState(true)
 
+  
   useEffect(() => {
-    const getUserData = async()=>{
+    const getUserData = async () => {
       try {
-        const response = await apiClient.get(GET_USER_INFO, {withCredentials: true})
-        if(response.status === 200 && response.data.id){
-          setUserInfo(response.data)
-        }else{
-          setUserInfo(undefined)
+        const response = await apiClient.get(GET_USER_INFO, { withCredentials: true });
+        if (response.status === 200 && response.data.id) {
+          setUserInfo(response.data);
+        } else {
+          setUserInfo(undefined);
         }
       } catch (error) {
-        console.log({error});
-        setUserInfo(undefined)
-      } finally{
-        setLoading(false)
+        console.log({ error });
+        setUserInfo(undefined);
+      } finally {
+        setLoading(false); // Stop loading when data is fetched or an error occurs
       }
-    }
+    };
+
     if (!userInfo) {
-      getUserData()
+      setLoading(true); // Show loading component on refresh
+      getUserData();     // Fetch user data
+    } else {
+      setLoading(false); // If userInfo is already available, no need to load
     }
-    else{
-      setLoading(false)
-    }
+  }, [userInfo, setUserInfo]);
 
-  }, [userInfo, setUserInfo])
-
+  
+  
   if(loading){
-    return <div>Loading...</div>
+    return ( <Loading />)
   }
 
   return (
