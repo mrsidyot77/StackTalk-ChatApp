@@ -117,6 +117,7 @@ function Profile() {
    }
   };
 
+  
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-1">
       <div className="fley fley-col nan-10 n_190vwl mdew-mas">

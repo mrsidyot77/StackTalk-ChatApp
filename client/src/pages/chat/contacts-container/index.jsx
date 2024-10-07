@@ -13,7 +13,7 @@ function ContactsContainer() {
     const getContacts = async () => {
       try {
         const response = await apiClient.get(GET_DM_CONTACTS_ROUTES, { withCredentials: true });
-        console.log("Contacts fetched:", response.data.contacts); // Log the contacts
+       
         if (response.data.contacts) {
           
           
