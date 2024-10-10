@@ -98,7 +98,7 @@ function Auth() {
                 <img src={Victory} alt="Victory Emoji" className="h-[100px]" />
               </div>
               <p className="font-medium text-center">
-                Fill in the details to get started with the SpiceChat app!
+                Fill in the details to get started with the StackTalk app!
               </p>
             </div>
             <div className="flex items-center justify-center w-full">

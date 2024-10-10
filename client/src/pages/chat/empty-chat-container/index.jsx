@@ -15,7 +15,7 @@ function EmptyChatContainer() {
       <div className='text-opacity-80 text-white flex flex-col items-center mt-10 gap-5 lg:text-4xl text-3xl transition-all duration-300 text-center'>
         <h3 className='poppins-medium'>
           Hi<span className='text-purple-500'>! </span>Welcome to
-          <span className='text-purple-500'> SpiceChat </span>App
+          <span className='text-purple-500'> StackTalk </span>App
           <span className='text-purple-500'>...</span>
         </h3>
       </div>

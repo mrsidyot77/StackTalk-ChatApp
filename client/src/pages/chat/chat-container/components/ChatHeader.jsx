@@ -28,10 +28,10 @@ function ChatHeader() {
             />
           ) : (
             <div
-              className={`uppercase cursor-pointer h-full w-full text-base md:text-lg border flex items-center justify-center rounded-full ${getColor(
+              className={`uppercase  h-full w-full text-base md:text-lg border flex items-center justify-center rounded-full ${getColor(
                 selectedChatData.color
               )}`}
-              onClick={() => navigate("/profile")}
+              
             >
               {selectedChatData?.firstName
                 ? selectedChatData.firstName.charAt(0)

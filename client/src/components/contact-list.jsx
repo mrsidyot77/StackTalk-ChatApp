@@ -3,8 +3,11 @@ import { useAppStore } from "@/store";
 import { HOST } from "@/utils/constants";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import React from "react";
+import { IoSearch } from "react-icons/io5";
 
 const ContactList = ({ contacts, isChannel = false }) => {
+
+  
   const {
     selectedChatType,
     setSelectedChatType,
@@ -75,7 +78,8 @@ const ContactList = ({ contacts, isChannel = false }) => {
           </div>
         ))
       ) : (
-        <p>No contacts available</p>
+        <div className=" mx-7 py-1 md:text-lg  flex items-center justify-center rounded-lg">
+           Search for new Contacts</div>
       )}
     </div>
   );
